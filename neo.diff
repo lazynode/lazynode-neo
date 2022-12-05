@@ -1,0 +1,54 @@
+diff --git a/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs b/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs
+index dfd21c63..687e91a3 100644
+--- a/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs
++++ b/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs
+@@ -82,28 +82,28 @@ namespace Neo.Network.P2P
+                     OnInventoryReceived((IInventory)msg.Payload);
+                     break;
+                 case MessageCommand.FilterAdd:
+-                    OnFilterAddMessageReceived((FilterAddPayload)msg.Payload);
++                    // OnFilterAddMessageReceived((FilterAddPayload)msg.Payload);
+                     break;
+                 case MessageCommand.FilterClear:
+-                    OnFilterClearMessageReceived();
++                    // OnFilterClearMessageReceived();
+                     break;
+                 case MessageCommand.FilterLoad:
+-                    OnFilterLoadMessageReceived((FilterLoadPayload)msg.Payload);
++                    // OnFilterLoadMessageReceived((FilterLoadPayload)msg.Payload);
+                     break;
+                 case MessageCommand.GetAddr:
+-                    OnGetAddrMessageReceived();
++                    // OnGetAddrMessageReceived();
+                     break;
+                 case MessageCommand.GetBlocks:
+-                    OnGetBlocksMessageReceived((GetBlocksPayload)msg.Payload);
++                    // OnGetBlocksMessageReceived((GetBlocksPayload)msg.Payload);
+                     break;
+                 case MessageCommand.GetBlockByIndex:
+-                    OnGetBlockByIndexMessageReceived((GetBlockByIndexPayload)msg.Payload);
++                    // OnGetBlockByIndexMessageReceived((GetBlockByIndexPayload)msg.Payload);
+                     break;
+                 case MessageCommand.GetData:
+-                    OnGetDataMessageReceived((InvPayload)msg.Payload);
++                    // OnGetDataMessageReceived((InvPayload)msg.Payload);
+                     break;
+                 case MessageCommand.GetHeaders:
+-                    OnGetHeadersMessageReceived((GetBlockByIndexPayload)msg.Payload);
++                    // OnGetHeadersMessageReceived((GetBlockByIndexPayload)msg.Payload);
+                     break;
+                 case MessageCommand.Headers:
+                     OnHeadersMessageReceived((HeadersPayload)msg.Payload);
+@@ -112,10 +112,10 @@ namespace Neo.Network.P2P
+                     OnInvMessageReceived((InvPayload)msg.Payload);
+                     break;
+                 case MessageCommand.Mempool:
+-                    OnMemPoolMessageReceived();
++                    // OnMemPoolMessageReceived();
+                     break;
+                 case MessageCommand.Ping:
+-                    OnPingMessageReceived((PingPayload)msg.Payload);
++                    if (((PingPayload)msg.Payload).LastBlockIndex < LedgerContract.Ledger.CurrentIndex(system.StoreView) - 1) Disconnect(true); else OnPingMessageReceived((PingPayload)msg.Payload);
+                     break;
+                 case MessageCommand.Pong:
+                     OnPongMessageReceived((PingPayload)msg.Payload);
