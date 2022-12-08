@@ -1,3 +1,16 @@
+diff --git a/src/Neo/Ledger/Blockchain.cs b/src/Neo/Ledger/Blockchain.cs
+index 52b3c37c..e95e026c 100644
+--- a/src/Neo/Ledger/Blockchain.cs
++++ b/src/Neo/Ledger/Blockchain.cs
+@@ -234,7 +234,7 @@ namespace Neo.Ledger
+             };
+             if (result == VerifyResult.Succeed && relay)
+             {
+-                system.LocalNode.Tell(new LocalNode.RelayDirectly { Inventory = inventory });
++                system.LocalNode.Tell(new LocalNode.SendDirectly { Inventory = inventory });
+             }
+             SendRelayResult(inventory, result);
+         }
 diff --git a/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs b/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs
 index dfd21c63..687e91a3 100644
 --- a/src/Neo/Network/P2P/RemoteNode.ProtocolHandler.cs
@@ -52,3 +65,16 @@ index dfd21c63..687e91a3 100644
                      break;
                  case MessageCommand.Pong:
                      OnPongMessageReceived((PingPayload)msg.Payload);
+diff --git a/src/Neo/Network/P2P/RemoteNode.cs b/src/Neo/Network/P2P/RemoteNode.cs
+index 845455aa..ca017117 100644
+--- a/src/Neo/Network/P2P/RemoteNode.cs
++++ b/src/Neo/Network/P2P/RemoteNode.cs
+@@ -170,7 +170,7 @@ namespace Neo.Network.P2P
+                     OnSend(inventory);
+                     break;
+                 case Relay relay:
+-                    OnRelay(relay.Inventory);
++                    // OnRelay(relay.Inventory);
+                     break;
+                 case StartProtocol _:
+                     OnStartProtocol();
